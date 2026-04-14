@@ -11,6 +11,8 @@ def main():
         description="ラジオ番組のリスナーとおたよりを生成します。"
     )
     parser.add_argument("-n", type=int, default=5, help="生成する数 (デフォルト: 5)")
+    parser.add_argument("--theme", type=str, default=None, help="おたよりのテーマ")
+    parser.add_argument("--description", type=str, default=None, help="テーマの説明")
     args = parser.parse_args()
 
     listener_gen = ListenerGenerator()
@@ -22,7 +24,7 @@ def main():
         print(f"[{i + 1}/{args.n}] 生成中...")
         try:
             listener = listener_gen.generate()
-            letter = letter_gen.generate(listener)
+            letter = letter_gen.generate(listener, theme=args.theme, theme_description=args.description)
 
             print(f"\n--- 生成されたリスナー ---\n{listener}")
             print(f"\n--- 生成されたおたより ---\n{letter}\n")
