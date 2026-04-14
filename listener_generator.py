@@ -51,4 +51,3 @@ class ListenerGenerator:
             personality=data["personality"],
             listener_type=data["listener_type"],
         )
-

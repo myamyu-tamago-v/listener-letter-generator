@@ -12,7 +12,8 @@ class RadioListener:
         gender (str): 性別
         age (int): 年齢
         personality (str): 性格・パーソナリティ
-        listener_type (str): リスナーのタイプ（例：熱心なリスナー、最近聞き始めた、など）
+        listener_type (str): リスナーのタイプ
+            （例：熱心なリスナー、最近聞き始めた、など）
     """
 
     radio_name: str
@@ -24,8 +25,7 @@ class RadioListener:
 
     def __str__(self):
         return (
-            f"{self.radio_name} ({self.age}歳 {self.gender} / {self.occupation}) "
+            f"{self.radio_name} "
+            f"({self.age}歳 {self.gender} / {self.occupation}) "
             f"[{self.listener_type}] - 性格: {self.personality}"
         )
-
-
