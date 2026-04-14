@@ -1,0 +1,29 @@
+[project]
+name = "listener-letter-generator"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.14"
+dependencies = [
+    "litellm>=1.83.4",
+    "ollama>=0.6.1",
+    "polars>=1.39.3",
+]
+
+[tool.ruff]
+line-length = 88
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "N", "W"]
+
+[tool.ruff.format]
+quote-style = "double"
+indent-style = "space"
+line-ending = "auto"
+
+
+
+[dependency-groups]
+dev = [
+    "ruff>=0.15.10",
+]
