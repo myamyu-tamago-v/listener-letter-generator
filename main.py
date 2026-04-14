@@ -24,7 +24,9 @@ def main():
         print(f"[{i + 1}/{args.n}] 生成中...")
         try:
             listener = listener_gen.generate()
-            letter = letter_gen.generate(listener, theme=args.theme, theme_description=args.description)
+            letter = letter_gen.generate(
+                listener, theme=args.theme, theme_description=args.description
+            )
 
             print(f"\n--- 生成されたリスナー ---\n{listener}")
             print(f"\n--- 生成されたおたより ---\n{letter}\n")
