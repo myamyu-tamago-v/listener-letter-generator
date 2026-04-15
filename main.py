@@ -22,8 +22,11 @@ def main():
 
     for i in range(args.n):
         print(f"[{i + 1}/{args.n}] 生成中...")
+        # ai_degreeを順番に割り当てることで、出力が偏らないようにする
+        target_ai_degree = i % 4
+
         try:
-            listener = listener_gen.generate()
+            listener = listener_gen.generate(ai_degree=target_ai_degree)
             letter = letter_gen.generate(
                 listener, theme=args.theme, theme_description=args.description
             )
@@ -40,9 +43,13 @@ def main():
                     "occupation": listener.occupation,
                     "personality": listener.personality,
                     "listener_type": listener.listener_type,
+                    "ai_degree": listener.ai_degree.name,
                 }
             )
-            print(f"完了: {listener.radio_name}\n" + "=" * 40)
+            print(
+                f"完了: {listener.radio_name} (AI度: {listener.ai_degree.name})\n"
+                + "=" * 40
+            )
 
         except Exception as e:
             print(f"エラーが発生しました ({i + 1}): {e}")
