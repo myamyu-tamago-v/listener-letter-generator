@@ -13,6 +13,13 @@ def main():
     parser.add_argument("-n", type=int, default=5, help="生成する数 (デフォルト: 5)")
     parser.add_argument("--theme", type=str, default=None, help="おたよりのテーマ")
     parser.add_argument("--description", type=str, default=None, help="テーマの説明")
+    parser.add_argument(
+        "--ai-degree",
+        type=int,
+        choices=[0, 1, 2, 3],
+        default=None,
+        help="AIっぽさの度合い (0:なし, 1:ささいな違和感, 2:半々, 3:完全にAI)",
+    )
     args = parser.parse_args()
 
     listener_gen = ListenerGenerator()
@@ -22,8 +29,9 @@ def main():
 
     for i in range(args.n):
         print(f"[{i + 1}/{args.n}] 生成中...")
-        # ai_degreeを順番に割り当てることで、出力が偏らないようにする
-        target_ai_degree = i % 4
+        # ai_degreeが指定されている場合はそれを使用し、
+        # 指定されていない場合は順番に割り当てることで偏りを防ぐ
+        target_ai_degree = args.ai_degree if args.ai_degree is not None else i % 4
 
         try:
             listener = listener_gen.generate(ai_degree=target_ai_degree)

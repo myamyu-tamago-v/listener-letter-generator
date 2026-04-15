@@ -41,5 +41,6 @@ class RadioListener:
         return (
             f"{self.radio_name} "
             f"({self.age}歳 {self.gender} / {self.occupation}) "
-            f"[{self.listener_type}] (AI度: {self.ai_degree.name}) - 性格: {self.personality}"
+            f"[{self.listener_type}] (AI度: {self.ai_degree.name})"
+            f" - 性格: {self.personality}"
         )
