@@ -39,12 +39,14 @@ def main():
                 listener, theme=args.theme, theme_description=args.description
             )
 
+            print(f"\n--- テーマ: {args.theme or 'フリー'} ---")
             print(f"\n--- 生成されたリスナー ---\n{listener}")
             print(f"\n--- 生成されたおたより ---\n{letter}\n")
 
             results.append(
                 {
                     "letter": letter.strip(),
+                    "theme": args.theme or "フリー",
                     "radio_name": listener.radio_name,
                     "age": listener.age,
                     "gender": listener.gender,
