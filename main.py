@@ -1,5 +1,4 @@
 import argparse
-import sys
 
 import polars as pl
 
