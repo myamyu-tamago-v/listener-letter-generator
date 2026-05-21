@@ -8,12 +8,6 @@ from listener_generator import ListenerGenerator
 
 
 def main():
-    # Windowsなどの環境で絵文字等の文字化けやUnicodeEncodeErrorを防ぐため、標準出力をUTF-8に設定
-    try:
-        sys.stdout.reconfigure(encoding='utf-8')
-    except AttributeError:
-        pass
-
     parser = argparse.ArgumentParser(
         description="ラジオ番組のリスナーとおたよりを生成します。"
     )
