@@ -1,7 +1,6 @@
 import json
 
-from litellm import completion
-
+import llm
 from radio_listener import AiDegree, RadioListener
 
 
@@ -10,10 +9,7 @@ class ListenerGenerator:
     LLMを使用してランダムなリスナー情報を生成するクラス。
     """
 
-    def __init__(self, model: str = "ollama/gemma4:e4b"):
-        self.model = model
-
-    def generate(self, ai_degree: int = None) -> RadioListener:
+    def generate(self, ai_degree: int | None = None) -> RadioListener:
         """
         ランダムなリスナーを1人生成します。
 
@@ -53,14 +49,7 @@ class ListenerGenerator:
         {ai_degree_instruction}
         """
 
-        response = completion(
-            model=self.model,
-            messages=[{"role": "user", "content": prompt}],
-            response_format={"type": "json_object"},
-        )
-
-        content = response.choices[0].message.content
-        data = json.loads(content)
+        data = llm.generate_json(messages=[{"role": "user", "content": prompt}])
 
         # AI度合いをEnumに変換（数値で返ってくるため）
         raw_degree = data.get("ai_degree", ai_degree if ai_degree is not None else 1)

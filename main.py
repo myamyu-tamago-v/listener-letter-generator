@@ -1,4 +1,5 @@
 import argparse
+import traceback
 
 import polars as pl
 
@@ -36,7 +37,9 @@ def main():
         try:
             listener = listener_gen.generate(ai_degree=target_ai_degree)
             letter = letter_gen.generate(
-                listener, theme=args.theme, theme_description=args.description
+                listener=listener,
+                theme=args.theme,
+                theme_description=args.description,
             )
 
             print(f"\n--- テーマ: {args.theme or 'フリー'} ---")
@@ -63,6 +66,7 @@ def main():
 
         except Exception as e:
             print(f"エラーが発生しました ({i + 1}): {e}")
+            traceback.print_exc()
 
     if results:
         df = pl.DataFrame(results)

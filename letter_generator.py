@@ -1,5 +1,4 @@
-from litellm import completion
-
+import llm
 from radio_listener import RadioListener
 
 
@@ -8,13 +7,15 @@ class LetterGenerator:
     リスナー情報に基づいてラジオへのおたよりを生成するクラス。
     """
 
-    def __init__(self, model: str = "ollama/gemma4:e4b"):
-        self.model = model
+    def __init__(self):
         self.personality_name = "みゃみゅ玉子"
         self.program_name = "殿の寝静まるそのあとに、家来はちょいと語りに入る"
 
     def generate(
-        self, listener: RadioListener, theme: str = None, theme_description: str = None
+        self,
+        listener: RadioListener,
+        theme: str | None = None,
+        theme_description: str | None = None,
     ) -> str:
         """
         指定されたリスナーの属性に沿ったおたよりの内容を生成します。
@@ -76,8 +77,5 @@ class LetterGenerator:
         AI度設定: {listener.ai_degree.name}
         """
 
-        response = completion(
-            model=self.model, messages=[{"role": "user", "content": prompt}]
-        )
-
-        return response.choices[0].message.content
+        response = llm.generate_text(messages=[{"role": "user", "content": prompt}])
+        return response
