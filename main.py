@@ -1,4 +1,5 @@
 import argparse
+import asyncio
 import traceback
 
 import polars as pl
@@ -7,7 +8,7 @@ from letter_generator import LetterGenerator
 from listener_generator import ListenerGenerator
 
 
-def main():
+async def main():
     parser = argparse.ArgumentParser(
         description="ラジオ番組のリスナーとおたよりを生成します。"
     )
@@ -24,7 +25,7 @@ def main():
     args = parser.parse_args()
 
     listener_gen = ListenerGenerator()
-    letter_gen = LetterGenerator()
+    letter_gen = LetterGenerator(theme=args.theme, theme_description=args.description)
 
     results = []
 
@@ -35,11 +36,9 @@ def main():
         target_ai_degree = args.ai_degree if args.ai_degree is not None else i % 4
 
         try:
-            listener = listener_gen.generate(ai_degree=target_ai_degree)
-            letter = letter_gen.generate(
+            listener = await listener_gen.generate_listener(ai_degree=target_ai_degree)
+            letter = await letter_gen.generate_letter(
                 listener=listener,
-                theme=args.theme,
-                theme_description=args.description,
             )
 
             print(f"\n--- テーマ: {args.theme or 'フリー'} ---")
@@ -75,4 +74,4 @@ def main():
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
