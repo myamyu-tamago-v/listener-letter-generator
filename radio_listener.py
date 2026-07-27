@@ -1,6 +1,6 @@
 from enum import IntEnum
 
-from pydantic import BaseModel, Field
+from pydantic import BaseModel
 
 
 class AiDegree(IntEnum):
