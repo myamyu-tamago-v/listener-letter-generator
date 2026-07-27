@@ -59,7 +59,7 @@ class LetterGenerator(LLMAgentBase):
         prompt = f"""次の情報をもとにおたよりを書いてください。
 
 【リスナー情報】
-ラジオネーム: {listener.radio_name}
+ラジオネーム: {listener.nickname}
 年齢: {listener.age}
 性別: {listener.gender}
 職業: {listener.occupation}

@@ -49,7 +49,7 @@ async def main():
                 {
                     "letter": letter.strip(),
                     "theme": args.theme or "フリー",
-                    "radio_name": listener.radio_name,
+                    "radio_name": listener.nickname,
                     "age": listener.age,
                     "gender": listener.gender,
                     "occupation": listener.occupation,
@@ -59,7 +59,7 @@ async def main():
                 }
             )
             print(
-                f"完了: {listener.radio_name} (AI度: {listener.ai_degree.name})\n"
+                f"完了: {listener.nickname} (AI度: {listener.ai_degree.name})\n"
                 + "=" * 40
             )
 
