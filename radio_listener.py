@@ -11,7 +11,6 @@ class AiDegree(IntEnum):
     HUMAN = 0  # 違和感なし
     SUBTLE = 1  # 1〜2つのささいな違和感
     MIXED = 2  # 人間とAIが半々
-    FULL_AI = 3  # 完全にAI（違和感しかない）
 
 
 class RadioListener(BaseModel):

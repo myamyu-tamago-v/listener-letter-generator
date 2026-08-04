@@ -18,9 +18,9 @@ async def main():
     parser.add_argument(
         "--ai-degree",
         type=int,
-        choices=[0, 1, 2, 3],
+        choices=[0, 1, 2],
         default=None,
-        help="AIっぽさの度合い (0:なし, 1:ささいな違和感, 2:半々, 3:完全にAI)",
+        help="AIっぽさの度合い (0:なし, 1:ささいな違和感, 2:半々)",
     )
     args = parser.parse_args()
 
@@ -33,7 +33,7 @@ async def main():
         print(f"[{i + 1}/{args.n}] 生成中...")
         # ai_degreeが指定されている場合はそれを使用し、
         # 指定されていない場合は順番に割り当てることで偏りを防ぐ
-        target_ai_degree = args.ai_degree if args.ai_degree is not None else i % 4
+        target_ai_degree = args.ai_degree if args.ai_degree is not None else i % 3
 
         try:
             listener = await listener_gen.generate_listener(ai_degree=target_ai_degree)
