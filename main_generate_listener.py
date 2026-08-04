@@ -16,7 +16,7 @@ async def main():
 
     for i in range(args.n):
         print(f"[{i + 1}/{args.n}] 生成中...")
-        target_ai_degree = i % 4
+        target_ai_degree = i % 3
 
         try:
             listener = await listener_gen.generate_listener(ai_degree=target_ai_degree)
