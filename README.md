@@ -1,6 +1,25 @@
 # listener-letter-generator
 ラジオのリスナーからのお便りをAIで生成します
 
+## 開発環境
+
+miseでpython, uvを固定しています。  
+miseをインストールしたうえで、開発のはじめに
+
+```
+mise install
+```
+
+を実行してください。
+その後、
+
+```
+uv sync
+```
+
+で必要なライブラリがインストールされます。
+
+
 ## 実行方法
 ```bash
 uv run .\main.py -n=10
