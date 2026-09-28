@@ -8,6 +8,12 @@ from letter_generator import LetterGenerator
 from listener_generator import ListenerGenerator
 
 
+def _write_to_letter_file(txt: str, append: bool = True):
+    flg = "a" if append else "w"
+    with open("letter.txt", flg, encoding="utf-8") as f:
+        f.write(f"{txt} \n")
+
+
 async def main():
     parser = argparse.ArgumentParser(
         description="ラジオ番組のリスナーとおたよりを生成します。"
@@ -28,6 +34,17 @@ async def main():
     letter_gen = LetterGenerator(theme=args.theme, theme_description=args.description)
 
     results = []
+
+    _write_to_letter_file(
+        f"""================
+theme: {args.theme or "フリー"}
+description:
+{args.description}
+================
+
+""",
+        append=False,
+    )
 
     for i in range(args.n):
         print(f"[{i + 1}/{args.n}] 生成中...")
@@ -62,7 +79,16 @@ async def main():
                 f"完了: {listener.nickname} (AI度: {listener.ai_degree.name})\n"
                 + "=" * 40
             )
+            _write_to_letter_file(f"""No. {i + 1}
 
+--- 生成されたリスナー ---
+{listener}
+
+--- 生成されたおたより ---
+{letter}
+
+{"=" * 40}
+""")
         except Exception as e:
             print(f"エラーが発生しました ({i + 1}): {e}")
             traceback.print_exc()

@@ -29,7 +29,7 @@ class RadioListener(BaseModel):
     def __str__(self):
         return (
             f"{self.nickname} "
-            f"({self.age}歳 {self.gender} / {self.occupation}) "
+            f"({self.age}歳 {self.gender} / {self.occupation}) \n"
             f"[{self.listener_type}] (AI度: {self.ai_degree.name})"
             f" - 性格: {self.personality}"
         )
