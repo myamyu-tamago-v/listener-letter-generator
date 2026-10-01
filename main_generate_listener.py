@@ -2,7 +2,7 @@ import argparse
 import asyncio
 import traceback
 
-from listener_generator import ListenerGenerator
+from generator.listener_generator import ListenerGenerator
 
 
 async def main():

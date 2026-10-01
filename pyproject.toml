@@ -10,6 +10,7 @@ dependencies = [
     "openai-agents>=0.17.3",
     "polars>=1.42.1",
     "pydantic>=2.12.5",
+    "python-dotenv>=1.0.1",
 ]
 
 [tool.ruff]

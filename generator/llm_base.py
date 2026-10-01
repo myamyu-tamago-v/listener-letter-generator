@@ -1,4 +1,3 @@
-import os
 from typing import Generic, TypeVar, cast, overload
 
 from agents import (
@@ -8,19 +7,21 @@ from agents import (
     set_default_openai_client,
     set_tracing_disabled,
 )
+from agents.models.openai_chatcompletions import OpenAIChatCompletionsModel as Model_
 from openai import AsyncOpenAI
 from pydantic import BaseModel
 
-_LLAMA_CPP_API_BASE_URL = os.getenv("LLM_BASE_URL", "http://localhost:18080")
-_LLAMA_CPP_API_KEY = os.getenv("LLM_API_KEY", "dummy_api_key")
+from .llm_conf import LLMConf, get_llm_conf
+
+llm_conf: LLMConf = get_llm_conf()
 
 # 初期設定
 client = AsyncOpenAI(
-    base_url=_LLAMA_CPP_API_BASE_URL,
-    api_key=_LLAMA_CPP_API_KEY,
+    base_url=llm_conf.base_url,
+    api_key=llm_conf.api_key,
 )
-set_default_openai_client(client=client)
-set_default_openai_api("chat_completions")
+# set_default_openai_client(client=client)
+# set_default_openai_api("chat_completions")
 set_tracing_disabled(disabled=True)
 
 T = TypeVar("T", bound=BaseModel)
@@ -35,12 +36,24 @@ class LLMAgentBase(Generic[T]):
         tools: list | None = None,
     ) -> None:
         self.schema = schema
-        self.agent = Agent(
-            name=name,
-            instructions=instructions,
-            tools=tools or [],
-            output_type=self.schema,
+        self.name = name
+        self.instructions = instructions
+        self.tools = tools
+
+    def _agent(self):
+        client = AsyncOpenAI(
+            base_url=llm_conf.base_url,
+            api_key=llm_conf.api_key,
         )
+        model = Model_(model=llm_conf.model_name, openai_client=client)
+        agent = Agent(
+            name=self.name,
+            instructions=self.instructions,
+            tools=self.tools or [],
+            output_type=self.schema,
+            model=model,
+        )
+        return agent
 
     @overload
     async def generate(self, prompt: str) -> T: ...
@@ -48,8 +61,9 @@ class LLMAgentBase(Generic[T]):
     async def generate(self, prompt: str) -> str: ...
 
     async def generate(self, prompt: str) -> T | str:
+        agent = self._agent()
         res = await Runner.run(
-            self.agent,
+            agent,
             input=prompt,
         )
         content = res.final_output
