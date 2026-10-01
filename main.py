@@ -10,7 +10,7 @@ from generator.listener_generator import ListenerGenerator
 
 def _write_to_letter_file(txt: str, append: bool = True):
     flg = "a" if append else "w"
-    with open("letter.txt", flg, encoding="utf-8") as f:
+    with open("output/letter.txt", flg, encoding="utf-8") as f:
         f.write(f"{txt} \n")
 
 
@@ -92,11 +92,6 @@ description:
         except Exception as e:
             print(f"エラーが発生しました ({i + 1}): {e}")
             traceback.print_exc()
-
-    if results:
-        df = pl.DataFrame(results)
-        df.write_csv("letter.tsv", separator="\t")
-        print(f"\n{len(results)}件のデータを letter.tsv に保存しました。")
 
 
 if __name__ == "__main__":

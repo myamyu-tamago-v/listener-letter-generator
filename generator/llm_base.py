@@ -3,8 +3,6 @@ from typing import Generic, TypeVar, cast, overload
 from agents import (
     Agent,
     Runner,
-    set_default_openai_api,
-    set_default_openai_client,
     set_tracing_disabled,
 )
 from agents.models.openai_chatcompletions import OpenAIChatCompletionsModel as Model_
@@ -20,8 +18,6 @@ client = AsyncOpenAI(
     base_url=llm_conf.base_url,
     api_key=llm_conf.api_key,
 )
-# set_default_openai_client(client=client)
-# set_default_openai_api("chat_completions")
 set_tracing_disabled(disabled=True)
 
 T = TypeVar("T", bound=BaseModel)

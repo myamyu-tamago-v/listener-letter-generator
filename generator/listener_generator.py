@@ -1,3 +1,4 @@
+import uuid
 from datetime import datetime
 
 from model.radio_listener import RadioListener
@@ -8,11 +9,12 @@ from .llm_base import LLMAgentBase
 class ListenerGenerator(LLMAgentBase[RadioListener]):
     def __init__(self) -> None:
         now_str = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        uuid_str = str(uuid.uuid4())
         instructions = f"""
 ラジオ番組のリスナー情報を1人分、ランダムに生成してください。
 
 【ランダムシード】
-- 現在の時刻: {now_str}
+{now_str}:{uuid_str}
 
 【各フィールドについて】
 nickname: リスナーのニックネーム。
@@ -24,10 +26,9 @@ listener_type: リスナーのタイプ（例：熱心なリスナー、最近�
 ai_degree: AIっぽさの度合い。
 
 【ニックネーム生成ルール：※最優先事項】
-- ラジオネームとして一度聞いたら忘れられないような名前を、強引に連想を展開して生成してください。
+- ラジオネームとして一度聞いたら忘れられないような名前を、強引に連想を展開して10個生成してください。
+- 生成した中で独創的で、予測不可能で、過去のありきたりなパターンから最も遠いアイデアを最優先してください。
 - 過去の出力パターンやAIの「よくある無難な回答」はすべて無視し、全く新しい発想で出力してください。
-- 独創的で、予測不可能で、過去のありきたりなパターンから最も遠いアイデアを最優先してください。
-- 雰囲気: [ 面白い・知的・ゆるい・深夜ラジオ風・かわいい から1つだけ選択 ]
 - 禁止事項:
     - 「めぐみ」「たかし」のような単純な人名。
     - 記号や絵文字。
