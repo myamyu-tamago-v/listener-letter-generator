@@ -1,5 +1,6 @@
-from llm import LLMAgentBase
-from radio_listener import RadioListener
+from model.radio_listener import RadioListener
+
+from .llm_base import LLMAgentBase
 
 
 class ListenerGenerator(LLMAgentBase[RadioListener]):

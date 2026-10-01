@@ -4,8 +4,8 @@ import traceback
 
 import polars as pl
 
-from letter_generator import LetterGenerator
-from listener_generator import ListenerGenerator
+from generator.letter_generator import LetterGenerator
+from generator.listener_generator import ListenerGenerator
 
 
 def _write_to_letter_file(txt: str, append: bool = True):

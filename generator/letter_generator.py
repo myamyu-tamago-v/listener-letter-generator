@@ -1,5 +1,6 @@
-from llm import LLMAgentBase
-from radio_listener import AiDegree, RadioListener
+from model.radio_listener import AiDegree, RadioListener
+
+from .llm_base import LLMAgentBase
 
 # AI度合いに応じた味付けの指示
 _ai_instructions = {
