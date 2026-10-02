@@ -29,6 +29,10 @@ _conf: dict[str, LLMConf] = {
         base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
         model_name="gemini-3.5-flash-lite",
     ),
+    "openrouter": LLMConf(
+        base_url="https://openrouter.ai/api/v1",
+        model_name="nvidia/nemotron-3-super-120b-a12b:free",  # gemmaが混んでて使えない
+    ),
 }
 
 
