@@ -21,10 +21,7 @@ async def main():
         try:
             listener = await listener_gen.generate_listener(ai_degree=target_ai_degree)
             print(f"\n--- 生成されたリスナー ---\n{listener}")
-            print(
-                f"完了: {listener.nickname} (AI度: {listener.ai_degree.name})\n"
-                + "=" * 40
-            )
+            print("=" * 40)
 
         except Exception as e:
             print(f"エラーが発生しました ({i + 1}): {e}")

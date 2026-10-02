@@ -2,8 +2,6 @@ import argparse
 import asyncio
 import traceback
 
-import polars as pl
-
 from generator.letter_generator import LetterGenerator
 from generator.listener_generator import ListenerGenerator
 
