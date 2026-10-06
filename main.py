@@ -1,5 +1,6 @@
 import argparse
 import asyncio
+import time
 import traceback
 
 from generator.letter_generator import LetterGenerator
@@ -46,6 +47,7 @@ description:
 
     for i in range(args.n):
         print(f"[{i + 1}/{args.n}] 生成中...")
+        start_time = time.perf_counter()
         # ai_degreeが指定されている場合はそれを使用し、
         # 指定されていない場合は順番に割り当てることで偏りを防ぐ
         target_ai_degree = args.ai_degree if args.ai_degree is not None else i % 3
@@ -87,6 +89,13 @@ description:
 
 {"=" * 40}
 """)
+            # リミット回避のために、一人当たり20秒はかけるようにする
+            elapsed_time = time.perf_counter() - start_time
+            print(f"...latency: {elapsed_time:.3f} sec")
+            if elapsed_time < 20:
+                wait_time = 20 - elapsed_time
+                print(f"...待機中... {wait_time:.3f} 秒")
+                time.sleep(20 - elapsed_time)
         except Exception as e:
             print(f"エラーが発生しました ({i + 1}): {e}")
             traceback.print_exc()
