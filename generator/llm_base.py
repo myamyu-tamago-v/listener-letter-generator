@@ -2,11 +2,13 @@ from typing import Generic, TypeVar, cast, overload
 
 from agents import (
     Agent,
+    ModelSettings,
     Runner,
     set_tracing_disabled,
 )
 from agents.models.openai_chatcompletions import OpenAIChatCompletionsModel as Model_
 from openai import AsyncOpenAI
+from openai.types import Reasoning
 from pydantic import BaseModel
 
 from .llm_conf import LLMConf, get_llm_conf
@@ -48,6 +50,7 @@ class LLMAgentBase(Generic[T]):
             tools=self.tools or [],
             output_type=self.schema,
             model=model,
+            model_settings=ModelSettings(reasoning=Reasoning(effort="high")),
         )
         return agent
 
