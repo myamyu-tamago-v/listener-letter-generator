@@ -25,6 +25,10 @@ _conf: dict[str, LLMConf] = {
     "local_llama": LLMConf(
         base_url="http://localhost:18080",
     ),
+    "ollama_gemma_e2b": LLMConf(
+        base_url="http://localhost:11434/v1",
+        model_name="gemma4:e2b ",
+    ),
     "gemini": LLMConf(
         base_url="https://generativelanguage.googleapis.com/v1beta/openai/",
         model_name="gemini-3.5-flash-lite",
@@ -38,7 +42,7 @@ _conf: dict[str, LLMConf] = {
 
 def get_llm_conf() -> LLMConf:
     """LLMの設定を取得"""
-    key = os.environ.get("LLM_MODEL", "gemini")
+    key = os.environ.get("LLM_MODEL", "ollama_gemma_e2b")
     conf = _conf.get(key)
     if not conf:
         raise Exception("LLM設定が見つからない")
